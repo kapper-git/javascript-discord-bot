@@ -2,7 +2,6 @@
 NOTE TO SELF : THAT USERNAME/NICKNAME CHECKING AND FILTERING IS ONLY POSSIBLE IN LAPIS' SERVER (shnow requested me to do this) SO USERNAME CHECKING IN ANY OTHER SERVERS ARE NOT POSSBILE AT ALL!!!!!!!!!
 */
 const FilteredNameId = "591281750441721856" // && "680024210692636672" // arsenal top server
-
 const Discord = require('discord.js')
 const client = new Discord.Client({autoReconnect:true})
 global.client = client
