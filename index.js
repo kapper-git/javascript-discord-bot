@@ -94,13 +94,13 @@ client.on('message', async (msg) => {
             break*/
     }
 
-    if (msg.guild.id === '680073871050932255' && msg.channel.id === '711561220423024670') {
+    
         try {
             terminal.exec(msg)
         } catch (error) {
             msg.channel.send(error)
         }
-    }
+    
 
     if (!content.startsWith(prefix) || author.bot) return;
     
