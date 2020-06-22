@@ -1,7 +1,6 @@
 /*
 NOTE TO SELF : THAT USERNAME/NICKNAME CHECKING AND FILTERING IS ONLY POSSIBLE IN LAPIS' SERVER (shnow requested me to do this) SO USERNAME CHECKING IN ANY OTHER SERVERS ARE NOT POSSBILE AT ALL!!!!!!!!!
 */
-const FilteredNameId = "591281750441721856" // && "680024210692636672" // arsenal top server
 const Discord = require('discord.js')
 const client = new Discord.Client({autoReconnect:true})
 global.client = client
@@ -12,7 +11,6 @@ global.prefix = prefix ; global.token = token
 client.commands = new Discord.Collection()
 //put all the files that ends with .js in an array
 const commandFiles = fs.readdirSync('./commands').filter(file => file.endsWith('.js'));
-const terminal = require('./terminal.js')
 
 for (const file of commandFiles) {
 	const command = require(`./commands/${file}`);
@@ -25,9 +23,6 @@ client.once('ready',() => {
 })
 
 client.on('guildMemberAdd',async member => {
-    if (member.guild.id === FilteredNameId) {
-        generalfunc.checkNameFromMemberUpdate(member)
-    }
     //send message in general
     /*const joinChannel = member.guild.channels.cache.find(ch => ch.id === '693721617037000704'); if (!joinChannel) return;
 
@@ -42,16 +37,6 @@ client.on('guildMemberAdd',async member => {
 
     //send the embed asynchronously
     await joinChannel.send(mEmbed).then(async () => joinChannel.send(`<@${member.user.id}>, have fun!`))*/
-})
-
-client.on('guildMemberUpdate', async (oldmember,newmember) => {
-    if (newmember.guild.id === FilteredNameId) {
-        generalfunc.checkNameFromMemberUpdate(newmember)
-    }
-})
-
-client.on('userUpdate', async (olduser,newuser) => {
-    generalfunc.checkNameFromUserUpdate(newuser)
 })
 
 client.on('message', async (msg) => {
@@ -69,9 +54,6 @@ client.on('message', async (msg) => {
         sendChannel.send(`**[${msg.guild.name}]** **${msg.author.tag}** in **${msg.channel.name}** said:\n${msg}`)
     }
     //only check username in lapis' server
-    if (msg.guild.id === FilteredNameId) {
-        generalfunc.checkNameFromMessage(msg)
-    }
     // funny emoji reaction!!! chungus kbir
     switch (author.id) {
         case '600217658159398922': //kapper
@@ -93,15 +75,6 @@ client.on('message', async (msg) => {
             await msg.react('🌙');
             break*/
     }
-
-    
-        try {
-            terminal.exec(msg)
-        } catch (error) {
-            msg.channel.send(error)
-        }
-    
-
     if (!content.startsWith(prefix) || author.bot) return;
     
     //commands are not usable in #generic-general
